@@ -1,0 +1,24 @@
+﻿
+@{
+    ViewData["Title"] = "Documentation";
+}
+
+<h1 class="docm">@ViewData["Title"]</h1>
+
+    <iframe id="Rapport" src="/lib/Rapport.pdf"></iframe>
+
+<style>
+    .container {
+        max-width: none;
+    }
+    #Rapport {
+        float: right;
+        width: 70%;
+        height: 500px;
+        margin-right: 20px;
+    }
+    .docm {
+        float: left;
+        margin: 1% 3%;
+    }
+</style>

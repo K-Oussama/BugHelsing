@@ -1,0 +1,124 @@
+﻿@model IEnumerable<BugTracker.Models.TicketDetail>
+
+@{
+    ViewData["Title"] = "TickD";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    var ID = ViewBag.IDd;
+    var name = ViewBag.ticketname;
+}
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            var table = $('#table_id2').DataTable({
+                "dom": '<"top"i>rt<"bottom"><"clear">'
+            });
+
+            $('#button-addon1').on('keyup click', function () {
+                table.search($('#search').val()).draw();
+            });
+        });
+
+    </script>
+
+    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="//nightly.datatables.net/js/jquery.dataTables.js"></script>
+}
+<link rel="stylesheet" type="text/css" href="~/css/css/theme.css" />
+<h1>Details : @name</h1>
+
+<br />
+<br />
+<br />
+<!-- SEARCH s-->
+<div class="table-data__tool">
+    <div class="table-data__tool-left" style="width: 50%;">
+        <!-- Starrt search -->
+        <center class="p-1 bg-light rounded rounded-pill shadow-sm mb-4">
+            <div class="input-group">
+                <input id="search" type="search" placeholder="Tapez ce que vous cherchez ?" aria-describedby="button-addon1" class="form-control border-0 bg-light">
+                <div class="input-group-append">
+                    <button id="button-addon1" type="submit" class="btn btn-link text-primary"><i class="fa fa-search"></i></button>
+                </div>
+            </div>
+        </center>
+        <!-- End search-->
+    </div>
+    <div class="table-data__tool-right">
+        <a class="au-btn au-btn-icon au-btn--green au-btn--small" data-modal="" id="btnCreate" onclick="OpenAddModal('TicketDetails',@ID)">
+            <i class="fa-solid fa-plus"></i>Ajouter Action
+        </a>
+    </div>
+</div>
+<!--Search e-->
+<table id="table_id2" class="table table-top-campaign">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Comment)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Priority)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedOn)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedBy)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Comment)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Priority)
+                </td>
+                <td>
+                    <span class="block-email">@Html.DisplayFor(modelItem => item.Status)</span>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedOn)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedBy)
+                </td>
+                <td>
+                    <a class="item tt tt-m" onclick="OpenEditModalProjects('TicketDetails',@item.Id)" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><i class="fa-regular fa-pen-to-square"></i></a>
+                    <a class="item tt tt-m" id="ViewDelete" onclick="OpenDeleteModal('TicketDetails',@item.Id)" data-toggle="tooltip" data-placement="top" title="" data-original-title="Details"><i class="fa-solid fa-circle-info"></i></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<!-- modal placeholders start-->
+<div id="modal-edit" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id='modal-edit-content'></div>
+        </div>
+    </div>
+</div>
+<div id="modal-add" class=" modal fade in">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id='modal-add-content'></div>
+        </div>
+    </div>
+</div>
+<div id="modal-delete" class=" modal fade in">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id='modal-delete-content'></div>
+        </div>
+    </div>
+</div>
+<!-- modal placeholders end-->

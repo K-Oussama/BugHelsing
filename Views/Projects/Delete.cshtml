@@ -1,0 +1,31 @@
+﻿@model BugTracker.Models.Project
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <script type="text/javascript" src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    @using (Html.BeginForm("Delete", "Projects", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <h3 class="modal-title">Supprimer ce Projet ?</h3>
+        <hr />
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.Id)
+        <div class="modal-body">
+            @Html.LabelFor(model => model.Name, new { @class = "control-label" })
+            @Html.TextBoxFor(model => model.Name, new { @class = "form-control", @readonly = "readonly" })
+
+            @Html.LabelFor(model => model.Description, new { @class = "control-label" })
+            @Html.TextBoxFor(model => model.Description, new { @class = "form-control", @readonly = "readonly" })
+
+            @Html.LabelFor(model => model.CreatedOn, new { @class = "control-label" })
+            @Html.TextBoxFor(model => model.CreatedOn, new { @class = "form-control", @readonly = "readonly" })
+
+            @Html.LabelFor(model => model.CreatedBy, new { @class = "control-label" })
+            @Html.TextBoxFor(model => model.CreatedBy, new { @class = "form-control", @readonly = "readonly" })
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+            <button type="submit" class="btn btn-primary">Supprimer</button>
+        </div>
+
+    }

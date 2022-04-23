@@ -1,0 +1,43 @@
+﻿@page
+@model LoginWith2faModel
+@{
+    ViewData["Title"] = "Two-factor authentication";
+    Layout = "~/Views/Shared/_LayoutAuth.cshtml";
+}
+<link rel="stylesheet" href="~/css/2Auth.css" />
+<h3>@ViewData["Title"]</h3>
+<hr />
+<p>Votre connexion est protégée par une application d'authentification. Entrez votre code d'authentification ci-dessous.</p>
+<div class="row">
+    <div class="col-lg-9" style="margin: 0 auto;">
+        <form method="post" asp-route-returnUrl="@Model.ReturnUrl">
+            <input asp-for="RememberMe" type="hidden" />
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Input.TwoFactorCode"></label>
+                <input asp-for="Input.TwoFactorCode" class="form-control" autocomplete="off" />
+                <span asp-validation-for="Input.TwoFactorCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label asp-for="Input.RememberMachine" class="containerCheck">
+                        <input asp-for="Input.RememberMachine">
+                        <div class="checkmark"></div>
+                        @Html.DisplayNameFor(m => m.Input.RememberMachine)
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn-lg btn-block fabtn">Continue</button>
+            </div>
+        </form>
+    </div>
+</div>
+<p>
+    Don't have access to your authenticator device? You can
+    <a id="recovery-code-login" asp-page="./LoginWithRecoveryCode" asp-route-returnUrl="@Model.ReturnUrl">connectez-vous avec un code de récupération</a>.
+</p>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

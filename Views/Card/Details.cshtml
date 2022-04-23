@@ -1,0 +1,55 @@
+﻿@model BugTracker.ViewModels.CardDetails
+
+@{ ViewData["Title"] = "Details";
+                Layout = "~/Views/Shared/_LayoutAdmin.cshtml"; }
+
+
+<!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />-->
+<link rel="stylesheet" href="~/css/cardetail.css" />
+<div class="container">
+    <h2>Details</h2>
+
+    <div class="row">
+        <form class="col s12" asp-controller="Card" asp-action="Update">
+            <div class="row">
+                <div class="input-field col s12">
+                    <input placeholder="Card contents" asp-for="Contents" />
+                    <label asp-for="Contents">Contents</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <textarea placeholder="Notes"
+                              asp-for="Notes"
+                              class="materialize-textarea"></textarea>
+                    <label asp-for="Notes">Notes</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <select asp-for="Column" asp-items="Model.Columns"></select>
+                    <label asp-for="Column"></label>
+                </div>
+            </div>
+            <div class="px-4">
+                <input type="submit" value="Save" class="btn btn-outline-success">
+                <button asp-controller="Kanban" asp-action="All" class="btn btn-outline-dark">Back to Boards</button>
+            </div>
+            <input asp-for="Id" type="hidden" />
+        </form>
+    </div>
+</div>
+
+
+@if (TempData.ContainsKey("Message"))
+{
+<script type="text/javascript">
+        M.toast({ html: '@TempData["Message"]'}, 3000);
+</script>}
+
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+        var elems = document.querySelectorAll('select');
+        var instances = M.FormSelect.init(elems);
+    });
+</script>

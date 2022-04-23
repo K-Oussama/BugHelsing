@@ -1,0 +1,43 @@
+﻿@model BugTracker.Models.Ticket
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<script type="text/javascript" src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+@{
+    var ID = ViewBag.pro;
+}
+@using (Html.BeginForm("Create", "Tickets", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <h3 class="modal-title">Declarer un nouveau bug</h3>
+    <hr />
+    @Html.ValidationSummary(true)
+    @Html.Hidden("Project", (int)ID)
+    <div class="modal-body">
+
+
+        @Html.LabelFor(model => model.Name, new { @class = "control-label" })
+        @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Name)
+
+        @Html.LabelFor(model => model.Description, new { @class = "control-label" })
+        @Html.TextBoxFor(model => model.Description, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Description)
+
+        @Html.LabelFor(model => model.CreatedOn, new { @class = "control-label" })
+        @Html.TextBoxFor(model => model.CreatedOn, new { @type = "datetime-local", @class = "form-control datepicker" })
+        @Html.ValidationMessageFor(model => model.CreatedOn)
+
+        @Html.LabelFor(model => model.CreatedBy, new { @class = "control-label" })
+        @Html.TextBoxFor(model => model.CreatedBy, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.CreatedBy)
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+        <button type="submit" class="btn btn-primary">Declarer</button>
+    </div>
+}
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

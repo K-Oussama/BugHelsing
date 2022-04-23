@@ -1,0 +1,58 @@
+﻿@model IEnumerable<BugTracker.Models.Board>
+@{
+    ViewData["Title"] = "Index";
+    var id = ViewBag.boardid;
+    var name = ViewBag.boardname;
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <h2>Boards <span style="color: #566574;">@name</span></h2>
+        <a asp-action="Create" asp-controller="Kanban" asp-route-id="@id" class="waves-effect waves-light btn">
+            Ajouter nouveau Board
+        </a>
+
+    </div>
+    <br/>
+    <div class="row">
+        @foreach (var board in Model)
+        {
+        <div class="card s12 card-m">
+            <div class="card-header bg-dark">
+                <strong class="card-title text-light">Card </strong>
+                <form asp-action="Delete" asp-controller="Kanban"
+                      style="float: right;">
+                    <input type="hidden"
+                           value="@board.Id"
+                           name="id" />
+                    <button class="btn-floating btn-small red"
+                            type="submit" style="color: #81e37a;">
+                        <i class="material-icons">delete</i>
+                    </button>
+                </form>
+            </div>
+            <div class="card-body text-white bg-danger" style="float: left;">
+                <div class="card-text text-light">
+
+                    <div class="card-content white-text" style="margin-bottom: 15px;">
+                        <span class="card-title">
+                            @board.Title
+                        </span>
+                    </div>
+
+                    <div class="card-action">
+                        <a asp-action="Index" asp-controller="Board"
+                           asp-route-id="@board.Id"
+                           class="btn btn-outline-light collection-item">View</a>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+</div>
+
+

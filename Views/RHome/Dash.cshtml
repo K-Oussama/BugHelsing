@@ -1,0 +1,92 @@
+﻿
+@{
+    ViewData["Title"] = "Dash";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    var projets = ViewBag.projets;
+    var bugs = ViewBag.bugs;
+    var tasks = ViewBag.tasks;
+    var board = ViewBag.board;
+}
+
+<h1>Tableau de bord</h1>
+<div class="row">
+    <div class="col-md-12">
+        <div class="overview-wrap">
+            <h2 class="title-1">overview</h2>
+        </div>
+    </div>
+</div>
+<div class="row m-t-25">
+    <div class="col-sm-6 col-lg-3">
+        <div class="overview-item overview-item--c1">
+            <div class="overview__inner">
+                <div class="overview-box clearfix">
+                    <div class="icon">
+                        <i class="zmdi zmdi-book"></i>
+                    </div>
+                    <div class="text">
+                        <h2>@projets</h2>
+                        <span>Projets</span>
+                    </div>
+                </div>
+                <div class="overview-chart">
+                    <canvas id="widgetChart1"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-lg-3">
+        <div class="overview-item overview-item--c2">
+            <div class="overview__inner">
+                <div class="overview-box clearfix">
+                    <div class="icon">
+                        <i class="zmdi zmdi-bug"></i>
+                    </div>
+                    <div class="text">
+                        <h2>@bugs</h2>
+                        <span>Bugs</span>
+                    </div>
+                </div>
+                <div class="overview-chart">
+                    <canvas id="widgetChart2"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-lg-3">
+        <div class="overview-item overview-item--c3">
+            <div class="overview__inner">
+                <div class="overview-box clearfix">
+                    <div class="icon">
+                        <i class="zmdi zmdi-calendar-note"></i>
+                    </div>
+                    <div class="text">
+                        <h2>@tasks</h2>
+                        <span>Taches</span>
+                    </div>
+                </div>
+                <div class="overview-chart">
+                    <canvas id="widgetChart3"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-lg-3">
+        <div class="overview-item overview-item--c4">
+            <div class="overview__inner">
+                <div class="overview-box clearfix">
+                    <div class="icon">
+                        <i class="zmdi zmdi-view-dashboard"></i>
+                    </div>
+                    <div class="text">
+                        <h2>@board</h2>
+                        <span>Boards</span>
+                    </div>
+                </div>
+                <div class="overview-chart">
+                    <canvas id="widgetChart4"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

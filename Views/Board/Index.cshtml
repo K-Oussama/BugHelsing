@@ -1,0 +1,91 @@
+﻿@model BugTracker.ViewModels.BoardView
+
+@{ 
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    }
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+
+@functions { public string GetAntiXsrfRequestToken()
+            {
+                return Xsrf.GetAndStoreTokens(Context).RequestToken;
+            } }
+
+<input type="hidden"
+       id="RequestVerificationToken"
+       name="RequestVerificationToken"
+       value="@GetAntiXsrfRequestToken()">
+
+<script>
+    $(function () {
+        $(".draggable").draggable({
+            revert: "invalid"
+        });
+
+        $('.column').droppable({
+            accept: '.draggable',
+            drop: function (event, ui) {
+                var dropped = ui.draggable;
+                var droppedOn = $(this);
+                $(dropped).detach().css({ top: 0, left: 0 }).appendTo(droppedOn);
+
+                $.ajax({
+                    type: "POST",
+                    dataType: "json",
+                    contentType: "application/json",
+                    url: "/api/Board/movecard",
+                    beforeSend: function (request) {
+                        request.setRequestHeader("RequestVerificationToken", $('#RequestVerificationToken').val());
+                    },
+                    data: JSON.stringify({ cardId: dropped[0].id, columnId: droppedOn[0].id }),
+                });
+            }
+        });
+    });
+</script>
+
+<div class="container">
+
+    <h4 style="text-align:center">@Model.Title</h4>
+
+    <div class="row">
+        <div class="col s10">
+            <a asp-controller="Board"
+               asp-action="AddCard"
+               asp-route-id="@Model.Id"
+               class="wave-effect waves-light btn">
+                Add A Card
+            </a>
+        </div>
+    </div>
+    <div class="row flex-row flex-sm-nowrap py-3" style="overflow-x: auto; white-space: nowrap;">
+        @foreach (var column in Model.Columns)
+        {
+            <div class="col-sm-6 col-md-4 col-xl-3">
+                <div class="card bg-light">
+                    <div class="card-body">
+                        <h6 class="card-title text-uppercase text-truncate py-2" style="text-align:center">@column.Title</h6>
+
+                        <div class="items border border-light column" style="min-height: 100px" id="@column.Id">
+
+                            @foreach (var card in column.Cards)
+                            {
+                                <div class="card shadow-sm blue-grey darken-1 draggable" id="@card.Id" style="z-index: 99;">
+                                    <div class="card-body p-2">
+                                        <!--card-content-->
+                                        <p>
+                                            <a asp-controller="Card" asp-action="Details" asp-route-id="@card.Id" class="white-text">
+                                                @card.Content
+                                            </a>
+                                        </p>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    </div>

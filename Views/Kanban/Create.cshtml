@@ -1,0 +1,23 @@
+﻿@model BugTracker.ViewModels.NewBoard;
+@{
+    ViewData["Title"] = "Create";
+    var id = ViewBag.boardid2;
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2 class="modal-title">Ajouter nouveau Board pour @id</h2>
+<div class="col-xl-6 mx-auto">
+    
+    <form method="post" asp-action="Create" asp-controller="Kanban" asp-route-id="@id">
+        <div asp-validation-summary="All" class="red-text"></div>
+        <input type="hidden" asp-for="ProjID" value="@id" />
+        <div class="wrap-input" style="margin-top: 40px;">
+            <label class="control-label m-2">Titre</label>
+            <input class="form-control m-2" type="text" asp-for="Title" />
+        </div>
+            <div class="contact2-form-bgbtn" style="text-align: center;">
+                <input type="submit" class="btn btn-primary" />
+            </div>
+    </form>
+</div>
+

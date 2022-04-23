@@ -1,0 +1,106 @@
+﻿@model IEnumerable<BugTracker.Models.Project>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+
+
+
+
+<h1 class="title-5 m-b-35">Projets</h1>
+
+<div class="table-data__tool">
+    <div class="table-data__tool-left" style="width: 50%;">
+        <!-- Starrt search -->
+        <center class="p-1 bg-light rounded rounded-pill shadow-sm mb-4">
+            <div class="input-group">
+                <input id="search" type="search" placeholder="Tapez ce que vous cherchez ?" aria-describedby="button-addon1" class="form-control border-0 bg-light">
+                <div class="input-group-append">
+                    <button id="button-addon1" type="submit" class="btn btn-link text-primary"><i class="fa fa-search"></i></button>
+                </div>
+            </div>
+        </center>
+        <!-- End search-->
+    </div>
+    <div class="table-data__tool-right">
+        <a class="au-btn au-btn-icon au-btn--green au-btn--small" data-modal="" id="btnCreate" onclick="OpenAddModalProjects('Projects')">
+            <i class="fa-solid fa-plus"></i>Ajouter Projet
+        </a>
+    </div>
+</div>
+<!-- DATA TABLE -->
+<div class="table-responsive table-responsive-data2">
+    <!-- table-responsive table-responsive-data2-->
+    <table class="table table-data2" id="table_id">
+        <!-- table table-data2-->
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.Name)</th>
+                <th>@Html.DisplayNameFor(model => model.Description)</th>
+                <th>@Html.DisplayNameFor(model => model.CreatedOn)</th>
+                <th>Inspecter</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr class="tr-shadow">
+                    <td><a asp-action="DetailsPage" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.Name)</a></td>
+                    <td>@Html.DisplayFor(modelItem => item.Description)</td>
+                    <td>@Html.DisplayFor(modelItem => item.CreatedOn)</td>
+                    <td>
+                        <div class="table-data-feature">
+                            <a class="item" asp-area="" asp-controller="Tickets" asp-action="Tick" asp-route-id="@item.Id" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tickets"><i class="fa fa-ticket"></i></a>
+                            <a class="item" asp-area="" asp-controller="Kanban" asp-action="index" asp-route-id="@item.Id" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tasks"><i class="fa-solid fa-list-check"></i></a>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="table-data-feature">
+                            <a class="item" onclick="OpenEditModalProjects('Projects',@item.Id)" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><i class="fa-regular fa-pen-to-square"></i></a>
+                            <a class="item" id="ViewDelete" onclick="OpenDeleteModal('Projects',@item.Id)" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i class="fa-solid fa-circle-minus"></i></a>
+                            <a class="item" id="ViewDetail" onclick="OpenDetailsModal('Projects',@item.Id)" data-toggle="tooltip" data-placement="top" title="" data-original-title="Details"><i class="fa-solid fa-circle-info"></i></a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<!-- END DATA TABLE -->
+<!-- modal placeholders start-->
+<div id="modal-edit" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id='modal-edit-content'></div>
+        </div>
+    </div>
+</div>
+<div id="modal-add" class=" modal fade in">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id='modal-add-content'></div>
+        </div>
+    </div>
+</div>
+<div id="modal-delete" class=" modal fade in">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id='modal-delete-content'></div>
+        </div>
+    </div>
+</div>
+<div id="modal-details" class="modal fade in">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id='modal-details-content'></div>
+        </div>
+    </div>
+</div>
+<!-- modal placeholders end-->
+<script>
+
+</script>

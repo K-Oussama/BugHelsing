@@ -1,0 +1,18 @@
+﻿@model BugTracker.ViewModels.AddCard
+@{
+    ViewData["Title"] = "AddCard";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="container">
+    <h2 class="modal-title">Ajouter Carte</h2>
+    <div class="row">
+        <form asp-action="AddCard" asp-controller="Board">
+            <div asp-validation-summary="All" class="red-text"></div>
+            <label class="control-label m-2">Contenu</label>
+            <input class="form-control m-2" type="text" asp-for="Contents" />
+            <button type="submit" class="btn btn-primary">Ajouter</button>
+        </form>
+    </div>
+</div>
+
